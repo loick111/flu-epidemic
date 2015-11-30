@@ -1,4 +1,6 @@
 # Flu Epidemic
+[![Build Status](https://travis-ci.com/loick111/flu-epidemic.svg?token=JYk1pm9i6DwDqFepCWeZ)](https://travis-ci.com/loick111/flu-epidemic)
+
 Winter is coming - this project is a simulation of a flu (influenza) epidemic. Obviously this will be a simplification of real-world epidemics. The simulation consists of both a disease model describing characteristics of the illness, and a social model describing how people interact with each other.
 
 We start with the basic element of the simulation – a person. We'll abstract away most of the details we associate with people since only a few qualities interest us. At any given time, a person can be in one of several states:
