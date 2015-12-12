@@ -1,6 +1,6 @@
 package fr.loick.polytech.flu;
 
-import fr.loick.polytech.flu.world.WorldMap;
+import fr.loick.polytech.flu.simulator.ConsoleSimulator;
 
 /**
  * Flu Epidemic App
@@ -9,7 +9,8 @@ import fr.loick.polytech.flu.world.WorldMap;
  * @date 30/11/2015
  */
 public class App {
-    public static void main(String[] args) {
-        WorldMap worldMap = new WorldMap();
+    public static void main(String[] args) throws InterruptedException {
+        ConsoleSimulator consoleSimulator = new ConsoleSimulator();
+        consoleSimulator.run(1000);
     }
 }
