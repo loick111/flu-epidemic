@@ -1,6 +1,8 @@
 package fr.loick.polytech.flu.world;
 
 /**
+ * This object represents direction
+ *
  * @author Loïck MAHIEUX
  * @date 30/11/15
  */
