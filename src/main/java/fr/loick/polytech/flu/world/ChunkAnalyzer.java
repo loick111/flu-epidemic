@@ -2,9 +2,10 @@ package fr.loick.polytech.flu.world;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static fr.loick.polytech.flu.world.Direction.*;
-import static fr.loick.polytech.flu.world.Neighbourhood.*;
+import static fr.loick.polytech.flu.world.Neighbourhood.DIAGONAL;
 
 /**
  * @author Loïck MAHIEUX
@@ -18,7 +19,7 @@ public class ChunkAnalyzer {
         this.worldMap = worldMap;
     }
 
-    public List<Location> potentialChunks(Chunk chunk) {
+    public List<Chunk> neighbourChunks(Chunk chunk) {
         List<Location> potentials = new ArrayList<>();
 
         Location location = new Location(chunk.getX(), chunk.getY());
@@ -35,55 +36,58 @@ public class ChunkAnalyzer {
         if (north.getX() >= 0
                 && north.getX() < worldMap.getWidth()
                 && north.getY() >= 0
-                && north.getY() < worldMap.getHeight()
-                && worldMap.getChunks().get(north.getY()).get(north.getX()).isFree())
+                && north.getY() < worldMap.getHeight())
             potentials.add(north);
         if (south.getX() >= 0
                 && south.getX() < worldMap.getWidth()
                 && south.getY() >= 0
-                && south.getY() < worldMap.getHeight()
-                && worldMap.getChunks().get(south.getY()).get(south.getX()).isFree())
+                && south.getY() < worldMap.getHeight())
             potentials.add(south);
         if (east.getX() >= 0
                 && east.getX() < worldMap.getWidth()
                 && east.getY() >= 0
-                && east.getY() < worldMap.getHeight()
-                && worldMap.getChunks().get(east.getY()).get(east.getX()).isFree())
+                && east.getY() < worldMap.getHeight())
             potentials.add(east);
         if (west.getX() >= 0
                 && west.getX() < worldMap.getWidth()
                 && west.getY() >= 0
-                && west.getY() < worldMap.getHeight()
-                && worldMap.getChunks().get(west.getY()).get(west.getX()).isFree())
+                && west.getY() < worldMap.getHeight())
             potentials.add(west);
 
-        if(DIAGONAL.equals(worldMap.getNeighbourhood())) {
+        if (DIAGONAL.equals(worldMap.getNeighbourhood())) {
             if (northEast.getX() >= 0
                     && northEast.getX() < worldMap.getWidth()
                     && northEast.getY() >= 0
-                    && northEast.getY() < worldMap.getHeight()
-                    && worldMap.getChunks().get(northEast.getY()).get(northEast.getX()).isFree())
+                    && northEast.getY() < worldMap.getHeight())
                 potentials.add(northEast);
             if (northWest.getX() >= 0
                     && northWest.getX() < worldMap.getWidth()
                     && northWest.getY() >= 0
-                    && northWest.getY() < worldMap.getHeight()
-                    && worldMap.getChunks().get(northWest.getY()).get(northWest.getX()).isFree())
+                    && northWest.getY() < worldMap.getHeight())
                 potentials.add(northWest);
             if (southEast.getX() >= 0
                     && southEast.getX() < worldMap.getWidth()
                     && southEast.getY() >= 0
-                    && southEast.getY() < worldMap.getHeight()
-                    && worldMap.getChunks().get(southEast.getY()).get(southEast.getX()).isFree())
+                    && southEast.getY() < worldMap.getHeight())
                 potentials.add(southEast);
             if (southWest.getX() >= 0
                     && southWest.getX() < worldMap.getWidth()
                     && southWest.getY() >= 0
-                    && southWest.getY() < worldMap.getHeight()
-                    && worldMap.getChunks().get(southWest.getY()).get(southWest.getX()).isFree())
+                    && southWest.getY() < worldMap.getHeight())
                 potentials.add(southWest);
         }
 
-        return potentials;
+        List<Chunk> chunks = new ArrayList<>();
+        for (Location l : potentials) {
+            Chunk c = worldMap.getChunks().get(l.getY()).get(l.getX());
+            if (c.isFree())
+                chunks.add(c);
+        }
+
+        return chunks;
+    }
+
+    public List<Chunk> potentialChunks(Chunk chunk) {
+        return neighbourChunks(chunk).stream().filter(Chunk::isFree).collect(Collectors.toList());
     }
 }

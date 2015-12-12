@@ -13,24 +13,23 @@ public abstract class Creature {
 
     protected State state;
     protected Virus virus;
+    private Integer age;
 
     public Creature() {
+        age = 1;
         state = State.HEALTHY;
         virus = null;
     }
 
-    public abstract void act();
+    public void contactWith(Creature creature) {
+        if (virus == null || !virus.canInfect(creature))
+            return;
 
-    public abstract void undergo();
+        
+    }
 
-    public Boolean isInfectable() {
-        if (state == State.DEAD)
-            return false;
-        if (state == State.CONTAGIOUS)
-            return false;
-        if (state == State.SICK)
-            return false;
-        return true;
+    public void old() {
+        age++;
     }
 
     @Override
@@ -38,5 +37,9 @@ public abstract class Creature {
         if (virus != null)
             return this.getClass().getSimpleName() + "(" + virus + ")";
         return this.getClass().getSimpleName().substring(0, 1);
+    }
+
+    public boolean isDead() {
+        return state.equals(State.DEAD);
     }
 }

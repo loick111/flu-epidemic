@@ -12,9 +12,11 @@ public abstract class Virus {
 
     private Collection<Class<? extends Creature>> infectables;
 
-    protected void addInfectable(Creature creature) {
-        infectables.add(creature.getClass());
+    protected void addInfectable(Class<? extends Creature> creatureClass) {
+        infectables.add(creatureClass);
     }
 
-    abstract boolean infect(Creature creature);
+    public boolean canInfect(Creature creature) {
+        return infectables.contains(creature.getClass());
+    }
 }

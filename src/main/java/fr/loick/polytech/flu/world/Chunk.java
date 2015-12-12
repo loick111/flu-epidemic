@@ -48,4 +48,8 @@ public class Chunk {
     public boolean isFree() {
         return creature == null;
     }
+
+    public void removeCreature() {
+        creature = null;
+    }
 }
