@@ -19,6 +19,14 @@ public class Location {
         this.y = y;
     }
 
+    public Integer getX() {
+        return x;
+    }
+
+    public Integer getY() {
+        return y;
+    }
+
     /**
      * Move to another direction
      *
@@ -41,6 +49,8 @@ public class Location {
             case WEST:
                 location = new Location(x - 1, y);
                 break;
+            default:
+                break;
         }
 
         return location;
@@ -57,11 +67,10 @@ public class Location {
         return !(y != null ? !y.equals(location.y) : location.y != null);
     }
 
-    public Integer getX() {
-        return x;
-    }
-
-    public Integer getY() {
-        return y;
+    @Override
+    public int hashCode() {
+        int result = x != null ? x.hashCode() : 0;
+        result = 31 * result + (y != null ? y.hashCode() : 0);
+        return result;
     }
 }

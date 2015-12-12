@@ -1,11 +1,10 @@
 package fr.loick.polytech.flu.simulator;
 
-import fr.loick.polytech.flu.world.Chunk;
 import fr.loick.polytech.flu.world.ChunkAnalyzer;
-import fr.loick.polytech.flu.world.creatures.*;
-
-import java.util.List;
-import java.util.Random;
+import fr.loick.polytech.flu.world.creatures.Chicken;
+import fr.loick.polytech.flu.world.creatures.Duck;
+import fr.loick.polytech.flu.world.creatures.Human;
+import fr.loick.polytech.flu.world.creatures.Pig;
 
 /**
  * Console Simulator

@@ -14,19 +14,17 @@ public class App {
         //ConsoleSimulator consoleSimulator = new ConsoleSimulator();
         //consoleSimulator.run(1000);
 
-	GraphicSimulator simulator = new GraphicSimulator();
-	LauncherView frame = new LauncherView();
-		while(true)
-		{	
-			Thread.sleep(1000);	
-			if ( frame.getGo() )
-			{
-				frame.setGo(false);
-				//simulate.reset();
-				simulator.reset();
-        			simulator.run( frame.getStep() + 1 ) ;
-				//simulate.simulate( frame.getStep() );
-			}
-		}
-	}
+        GraphicSimulator simulator = new GraphicSimulator();
+        LauncherView frame = new LauncherView();
+        while (true) {
+            Thread.sleep(1000);
+            if (frame.getGo()) {
+                frame.setGo(false);
+                //simulate.reset();
+                simulator.reset();
+                simulator.run(frame.getStep() + 1);
+                //simulate.simulate( frame.getStep() );
+            }
+        }
+    }
 }

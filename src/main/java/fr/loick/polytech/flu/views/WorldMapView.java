@@ -1,16 +1,13 @@
 package fr.loick.polytech.flu.views;
 
-import java.awt.*;
+import fr.loick.polytech.flu.world.Chunk;
+import fr.loick.polytech.flu.world.WorldMap;
+import fr.loick.polytech.flu.world.creatures.Creature;
+
 import javax.swing.*;
+import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import fr.loick.polytech.flu.world.Chunk;
-import fr.loick.polytech.flu.world.Neighbourhood;
-import fr.loick.polytech.flu.world.WorldMap;
-import fr.loick.polytech.flu.world.creatures.CreatureFactory;
-import fr.loick.polytech.flu.world.creatures.RandomCreatureFactory;
-import fr.loick.polytech.flu.world.creatures.Creature;
 
 /**
  * A graphical view of the simulation grid. The view displays a colored
@@ -41,10 +38,8 @@ public class WorldMapView extends JFrame {
     /**
      * Create a view of the given width and height.
      *
-     * @param height
-     *            The simulation's height.
-     * @param width
-     *            The simulation's width.
+     * @param height The simulation's height.
+     * @param width  The simulation's width.
      */
     public WorldMapView(int height, int width) {
         //  stats = new FieldStats();
@@ -69,10 +64,8 @@ public class WorldMapView extends JFrame {
     /**
      * Define a color to be used for a given class of animal.
      *
-     * @param animalClass
-     *            The animal's Class object.
-     * @param color
-     *            The color to be used for the given class.
+     * @param animalClass The animal's Class object.
+     * @param color       The color to be used for the given class.
      */
     public void setColor(Class animalClass, Color color) {
         colors.put(animalClass, color);
@@ -94,12 +87,10 @@ public class WorldMapView extends JFrame {
     /**
      * Show the current status of the field.
      *
-     * @param step
-     *            Which iteration step it is.
-     * @param worldMap
-     *            The field whose status is to be displayed.
+     * @param step     Which iteration step it is.
+     * @param worldMap The field whose status is to be displayed.
      */
-    public void showStatus(int step , WorldMap worldMap ){//, Field field) {
+    public void showStatus(int step, WorldMap worldMap) {//, Field field) {
         if (!isVisible()) {
             setVisible(true);
         }
@@ -148,7 +139,7 @@ public class WorldMapView extends JFrame {
      *
      * @return true If there is more than one species alive.
      */
-    public boolean isViable(){//Field field) {
+    public boolean isViable() {//Field field) {
         return true;
         //return stats.isViable(field);
     }
@@ -161,10 +152,9 @@ public class WorldMapView extends JFrame {
      */
     private class FieldView extends JPanel {
         private final int GRID_VIEW_SCALING_FACTOR = 6;
-
+        Dimension size;
         private int gridWidth, gridHeight;
         private int xScale, yScale;
-        Dimension size;
         private Graphics g;
         private Image fieldImage;
 
