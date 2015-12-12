@@ -1,4 +1,4 @@
-package fr.loick.polytech.flu;
+package fr.loick.polytech.flu.views;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 	@author : Ulysse RICCIO
 */
 
-public class OptionGraphic extends JFrame {
+public class LauncherView extends JFrame {
 
 	private boolean go;
 	private JTextField testField1;
@@ -37,7 +37,7 @@ static final int FPS_INIT = 150;//50;    //initial frames per second
 
 	private int step;
 
-   public OptionGraphic() {
+   public LauncherView() {
      super("Option");
 	go = false;
 	step = 300;

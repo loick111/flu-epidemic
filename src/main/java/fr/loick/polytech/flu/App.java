@@ -1,7 +1,7 @@
 package fr.loick.polytech.flu;
 
-import fr.loick.polytech.flu.simulator.ConsoleSimulator;
 import fr.loick.polytech.flu.simulator.GraphicSimulator;
+import fr.loick.polytech.flu.views.LauncherView;
 
 /**
  * Flu Epidemic App
@@ -14,10 +14,8 @@ public class App {
         //ConsoleSimulator consoleSimulator = new ConsoleSimulator();
         //consoleSimulator.run(1000);
 
-	GraphicSimulator consoleSimulator = new GraphicSimulator();
-
-
-	OptionGraphic frame = new OptionGraphic();
+	GraphicSimulator simulator = new GraphicSimulator();
+	LauncherView frame = new LauncherView();
 		while(true)
 		{	
 			Thread.sleep(1000);	
@@ -25,8 +23,8 @@ public class App {
 			{
 				frame.setGo(false);
 				//simulate.reset();
-				consoleSimulator.reset();
-        			consoleSimulator.run( frame.getStep() + 1 ) ;
+				simulator.reset();
+        			simulator.run( frame.getStep() + 1 ) ;
 				//simulate.simulate( frame.getStep() );
 			}
 		}

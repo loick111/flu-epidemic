@@ -1,4 +1,4 @@
-package fr.loick.polytech.flu.states;
+package fr.loick.polytech.flu.world;
 
 /**
  * @author Loïck MAHIEUX

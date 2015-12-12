@@ -1,6 +1,6 @@
 package fr.loick.polytech.flu.world.creatures;
 
-import fr.loick.polytech.flu.states.State;
+import fr.loick.polytech.flu.world.State;
 import fr.loick.polytech.flu.world.virus.Virus;
 
 import java.util.Random;

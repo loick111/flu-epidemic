@@ -1,4 +1,4 @@
-package fr.loick.polytech.flu.simulator;
+package fr.loick.polytech.flu.views;
 
 import java.awt.*;
 import javax.swing.*;
@@ -17,11 +17,11 @@ import fr.loick.polytech.flu.world.creatures.Creature;
  * rectangle for each location representing its contents. It uses a default
  * background color. Colors for each type of species can be defined using the
  * setColor method.
- * 
+ *
  * @author David J. Barnes and Michael Kölling and Ulysse RICCIO
  * @version 2011.07.31
  */
-public class SimulatorView extends JFrame {
+public class WorldMapView extends JFrame {
     // Colors used for empty locations.
     private static final Color EMPTY_COLOR = Color.white;
 
@@ -40,17 +40,17 @@ public class SimulatorView extends JFrame {
 
     /**
      * Create a view of the given width and height.
-     * 
+     *
      * @param height
      *            The simulation's height.
      * @param width
      *            The simulation's width.
      */
-    public SimulatorView(int height, int width) {
-      //  stats = new FieldStats();
+    public WorldMapView(int height, int width) {
+        //  stats = new FieldStats();
         colors = new LinkedHashMap<>();
 
-        setTitle("Fox and Rabbit Simulation");
+        setTitle("Flu Epidemic");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
 
@@ -68,7 +68,7 @@ public class SimulatorView extends JFrame {
 
     /**
      * Define a color to be used for a given class of animal.
-     * 
+     *
      * @param animalClass
      *            The animal's Class object.
      * @param color
@@ -93,10 +93,10 @@ public class SimulatorView extends JFrame {
 
     /**
      * Show the current status of the field.
-     * 
+     *
      * @param step
      *            Which iteration step it is.
-     * @param field
+     * @param worldMap
      *            The field whose status is to be displayed.
      */
     public void showStatus(int step , WorldMap worldMap ){//, Field field) {
@@ -145,12 +145,12 @@ public class SimulatorView extends JFrame {
 
     /**
      * Determine whether the simulation should continue to run.
-     * 
+     *
      * @return true If there is more than one species alive.
      */
     public boolean isViable(){//Field field) {
-	return true;        
-	//return stats.isViable(field);
+        return true;
+        //return stats.isViable(field);
     }
 
     /**

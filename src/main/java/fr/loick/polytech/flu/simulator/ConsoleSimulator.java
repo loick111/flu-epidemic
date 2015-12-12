@@ -21,37 +21,7 @@ public class ConsoleSimulator extends Simulator {
         System.out.println(worldMap);
 
         for (; step < steps; step++) {
-
-            for (int x = 0; x < worldMap.getWidth(); x++) {
-                for (int y = 0; y < worldMap.getHeight(); y++) {
-                    Chunk chunk = worldMap.getChunks().get(y).get(x);
-                    Creature creature = chunk.getCreature();
-
-                    // if chunk is not free
-                    if (creature != null) {
-                        creature.old();
-
-                        // free chunk if is dead
-                        if (creature.isDead())
-                            chunk.removeCreature();
-
-                        // get neighbors
-                        List<Chunk> potentialChunks = chunkAnalyzer.potentialChunks(chunk);
-                        List<Chunk> neighborsChunksCreatures = chunkAnalyzer.neighbourChunksCreatures(chunk);
-
-                        // contact
-                        for (Chunk c : neighborsChunksCreatures)
-                            creature.contactWith(c.getCreature());
-
-                        // move
-                        if (!potentialChunks.isEmpty()) {
-                            Random random = new Random();
-                            Chunk toChunk = potentialChunks.get(random.nextInt(potentialChunks.size()));
-                            chunk.moveCreature(toChunk);
-                        }
-                    }
-                }
-            }
+            step();
 
             System.out.println("Step " + step);
             System.out.println(chunkAnalyzer.countCreatures() + " creatures");
