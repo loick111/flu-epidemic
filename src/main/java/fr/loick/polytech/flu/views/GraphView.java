@@ -1,8 +1,8 @@
-package fr.loick.polytech.flu.simulator;
+package fr.loick.polytech.flu.views;
 
-import java.awt.*;
-import java.awt.image.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.*;
 
 /**
@@ -10,11 +10,11 @@ import java.util.*;
  * line graph over time. In its current version, it can only plot exactly two
  * different classes of animals. If further animals are introduced, they will
  * not currently be displayed.
- * 
+ *
  * @author Michael Kölling and David J. Barnes and Ulysse RICCIO
  * @version 2011.07.31
  */
-public class GraphView extends GraphicSimulator {//implements GraphicSimulator {
+public class GraphView extends JFrame {
     private static final Color LIGHT_GRAY = new Color(0, 0, 0, 40);
 
     private static JFrame frame;
@@ -31,19 +31,13 @@ public class GraphView extends GraphicSimulator {//implements GraphicSimulator {
 
     /**
      * Constructor.
-     * 
-     * @param width
-     *            The width of the plotter window (in pixles).
-     * @param height
-     *            The height of the plotter window (in pixles).
-     * @param startMax
-     *            The initial maximum value for the y axis.
-     * @param world
-     *            The world object.
-     * @param class1
-     *            The first class to be plotted.
-     * @param width
-     *            The second class to be plotted.
+     *
+     * @param width    The width of the plotter window (in pixles).
+     * @param height   The height of the plotter window (in pixles).
+     * @param startMax The initial maximum value for the y axis.
+     * @param world    The world object.
+     * @param class1   The first class to be plotted.
+     * @param width    The second class to be plotted.
      */
     public GraphView(int width, int height, int startMax) {
 //        stats = new FieldStats();
@@ -61,11 +55,9 @@ public class GraphView extends GraphicSimulator {//implements GraphicSimulator {
 
     /**
      * Define a color to be used for a given class of animal.
-     * 
-     * @param animalClass
-     *            The animal's Class object.
-     * @param color
-     *            The color to be used for the given class.
+     *
+     * @param animalClass The animal's Class object.
+     * @param color       The color to be used for the given class.
      */
     public void setColor(Class animalClass, Color color) {
         colors.put(animalClass, color);
@@ -78,24 +70,22 @@ public class GraphView extends GraphicSimulator {//implements GraphicSimulator {
      * work for more (or fewer) than exactly two classes. If the field contains
      * more than two different types of animal, only two of the classes will be
      * plotted.
-     * 
-     * @param step
-     *            Which iteration step it is.
-     * @param field
-     *            The field whose status is to be displayed.
+     *
+     * @param step  Which iteration step it is.
+     * @param field The field whose status is to be displayed.
      */
-    public void showStatus(int step){//, Field field) {
+    public void showStatus(int step) {//, Field field) {
         //graph.update(step, field, stats);
     }
 
     /**
      * Determine whether the simulation should continue to run.
-     * 
+     *
      * @return true If there is more than one species alive.
      */
-    public boolean isViable(){//Field field) {
+    public boolean isViable() {//Field field) {
         //return stats.isViable(field);
-	return true;
+        return true;
     }
 
     /**
@@ -134,6 +124,7 @@ public class GraphView extends GraphicSimulator {//implements GraphicSimulator {
     }
 
     // ============================================================================
+
     /**
      * Nested class: a component to display the graph.
      */
@@ -178,7 +169,7 @@ public class GraphView extends GraphicSimulator {//implements GraphicSimulator {
         /**
          * Dispay a new point of data.
          */
-        public void update(int step){//, Field field, FieldStats stats) {
+        public void update(int step) {//, Field field, FieldStats stats) {
             if (classes.size() >= 2) {
                 Iterator<Class> it = classes.iterator();
                 Class class1 = it.next();
@@ -198,7 +189,7 @@ public class GraphView extends GraphicSimulator {//implements GraphicSimulator {
 
                 // calculate y, check whether it's out of screen. scale down if
                 // necessary.
-                int y =0;//= height - ((height * count1) / yMax) - 1;
+                int y = 0;//= height - ((height * count1) / yMax) - 1;
                 while (y < 0) {
                     scaleDown();
                     //y = height - ((height * count1) / yMax) - 1;
@@ -212,7 +203,7 @@ public class GraphView extends GraphicSimulator {//implements GraphicSimulator {
                 //y = height - ((height * count2) / yMax) - 1;
                 while (y < 0) {
                     scaleDown();
-                //    y = height - ((height * count2) / yMax) - 1;
+                    //    y = height - ((height * count2) / yMax) - 1;
                 }
                 g.setColor(LIGHT_GRAY);
                 g.drawLine(width - 2, y, width - 2, height);
@@ -279,7 +270,7 @@ public class GraphView extends GraphicSimulator {//implements GraphicSimulator {
         /**
          * Tell the layout manager how big we would like to be. (This method
          * gets called by layout managers for placing the components.)
-         * 
+         *
          * @return The preferred dimension for this component.
          */
         public Dimension getPreferredSize() {
@@ -297,10 +288,9 @@ public class GraphView extends GraphicSimulator {//implements GraphicSimulator {
          * This component needs to be redisplayed. Copy the internal image to
          * screen. (This method gets called by the Swing screen painter every
          * time it wants this component displayed.)
-         * 
-         * @param g
-         *            The graphics context that can be used to draw on this
-         *            component.
+         *
+         * @param g The graphics context that can be used to draw on this
+         *          component.
          */
         public void paintComponent(Graphics g) {
             // g.clearRect(0, 0, size.width, size.height);
