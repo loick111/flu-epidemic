@@ -12,8 +12,14 @@ import java.util.Collection;
 public abstract class Virus {
 
     private Collection<Class<? extends Creature>> infectables;
+    private Double infectionRatio;
 
-    protected Virus() {
+    private Virus() {
+
+    }
+
+    protected Virus(Double infectionRatio) {
+        this.infectionRatio = infectionRatio;
         this.infectables = new ArrayList<>();
     }
 
@@ -28,5 +34,9 @@ public abstract class Virus {
     @Override
     public String toString() {
         return this.getClass().getSimpleName();
+    }
+
+    public Double getInfectionRatio() {
+        return infectionRatio;
     }
 }

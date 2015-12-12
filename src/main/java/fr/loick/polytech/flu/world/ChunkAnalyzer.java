@@ -1,11 +1,11 @@
 package fr.loick.polytech.flu.world;
 
+import fr.loick.polytech.flu.world.creatures.Creature;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static com.sun.javafx.fxml.expression.Expression.not;
 import static fr.loick.polytech.flu.world.Direction.*;
 import static fr.loick.polytech.flu.world.Neighbourhood.DIAGONAL;
 
@@ -19,6 +19,30 @@ public class ChunkAnalyzer {
 
     public ChunkAnalyzer(WorldMap worldMap) {
         this.worldMap = worldMap;
+    }
+
+    public Integer countCreatures() {
+        Integer count = 0;
+        for (int x = 0; x < worldMap.getWidth(); x++) {
+            for (int y = 0; y < worldMap.getHeight(); y++) {
+                Chunk chunk = worldMap.getChunks().get(y).get(x);
+                if (!chunk.isFree())
+                    count++;
+            }
+        }
+        return count;
+    }
+
+    public Integer countCreatures(Class<? extends Creature> creatureClass) {
+        Integer count = 0;
+        for (int x = 0; x < worldMap.getWidth(); x++) {
+            for (int y = 0; y < worldMap.getHeight(); y++) {
+                Chunk chunk = worldMap.getChunks().get(y).get(x);
+                if (!chunk.isFree() && chunk.getCreature().getClass().equals(creatureClass))
+                    count++;
+            }
+        }
+        return count;
     }
 
     public List<Chunk> neighbourChunks(Chunk chunk) {

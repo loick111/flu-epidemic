@@ -3,6 +3,8 @@ package fr.loick.polytech.flu.world.creatures;
 import fr.loick.polytech.flu.states.State;
 import fr.loick.polytech.flu.world.virus.Virus;
 
+import java.util.Random;
+
 /**
  * This object represents creature
  *
@@ -25,11 +27,19 @@ public abstract class Creature {
         if (virus == null || !virus.canInfect(creature))
             return;
 
-        creature.virus = virus;
+        Random random = new Random();
+        Double infectionRatio = virus.getInfectionRatio();
+
+        if (random.nextInt(100) < infectionRatio * 100)
+            creature.virus = virus;
     }
 
     public void old() {
         age++;
+    }
+
+    public boolean isDead() {
+        return state.equals(State.DEAD);
     }
 
     @Override
@@ -37,9 +47,5 @@ public abstract class Creature {
         if (virus != null)
             return "(" + this.getClass().getSimpleName().substring(0, 1) + ")";
         return " " + this.getClass().getSimpleName().substring(0, 1);
-    }
-
-    public boolean isDead() {
-        return state.equals(State.DEAD);
     }
 }

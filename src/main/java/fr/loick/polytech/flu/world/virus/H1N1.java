@@ -9,7 +9,7 @@ import fr.loick.polytech.flu.world.creatures.Pig;
  */
 public class H1N1 extends Virus {
     public H1N1() {
-        super();
+        super(0.4);
         addInfectable(Pig.class);
         addInfectable(Human.class);
     }

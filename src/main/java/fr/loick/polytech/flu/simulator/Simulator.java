@@ -15,8 +15,8 @@ import java.util.Random;
  */
 public abstract class Simulator {
 
-    private static final int DEFAULT_WIDTH = 7;
-    private static final int DEFAULT_HEIGHT = 10;
+    private static final int DEFAULT_WIDTH = 10;
+    private static final int DEFAULT_HEIGHT = 20;
 
     protected Integer step;
     protected WorldMap worldMap;
@@ -37,7 +37,7 @@ public abstract class Simulator {
         worldMap = new WorldMap(width, height, Neighbourhood.NORMAL);
     }
 
-    abstract void run(Integer steps);
+    abstract void run(Integer steps) throws InterruptedException;
 
     public void populate() {
         Random random = new Random();
