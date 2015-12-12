@@ -25,7 +25,7 @@ public abstract class Creature {
         if (virus == null || !virus.canInfect(creature))
             return;
 
-        
+        creature.virus = virus;
     }
 
     public void old() {
@@ -35,8 +35,8 @@ public abstract class Creature {
     @Override
     public String toString() {
         if (virus != null)
-            return this.getClass().getSimpleName() + "(" + virus + ")";
-        return this.getClass().getSimpleName().substring(0, 1);
+            return "(" + this.getClass().getSimpleName().substring(0, 1) + ")";
+        return " " + this.getClass().getSimpleName().substring(0, 1);
     }
 
     public boolean isDead() {

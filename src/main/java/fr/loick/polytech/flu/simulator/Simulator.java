@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public abstract class Simulator {
 
-    private static final int DEFAULT_WIDTH = 20;
+    private static final int DEFAULT_WIDTH = 7;
     private static final int DEFAULT_HEIGHT = 10;
 
     protected Integer step;

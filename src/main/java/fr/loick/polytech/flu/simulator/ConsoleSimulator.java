@@ -15,6 +15,7 @@ import java.util.Random;
 public class ConsoleSimulator extends Simulator {
     public void run(Integer steps) {
         populate();
+        ChunkAnalyzer chunkAnalyzer = new ChunkAnalyzer(worldMap);
         System.out.println(worldMap);
 
         for (; step < steps; step++) {
@@ -33,12 +34,12 @@ public class ConsoleSimulator extends Simulator {
                             chunk.removeCreature();
 
                         // get neighbors
-                        ChunkAnalyzer chunkAnalyzer = new ChunkAnalyzer(worldMap);
                         List<Chunk> potentialChunks = chunkAnalyzer.potentialChunks(chunk);
                         List<Chunk> neighborsChunks = chunkAnalyzer.neighbourChunks(chunk);
+                        List<Chunk> neighborsChunksCreatures = chunkAnalyzer.neighbourChunksCreatures(chunk);
 
                         // contact
-                        for (Chunk c : neighborsChunks)
+                        for (Chunk c : neighborsChunksCreatures)
                             creature.contactWith(c.getCreature());
 
                         // move

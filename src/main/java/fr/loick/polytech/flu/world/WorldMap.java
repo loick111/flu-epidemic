@@ -51,8 +51,10 @@ public class WorldMap {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < width; x++) {
                 sb.append(chunks.get(y).get(x));
+                sb.append("\t");
+            }
             sb.append('\n');
         }
         return sb.toString();

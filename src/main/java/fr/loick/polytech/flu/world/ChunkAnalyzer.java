@@ -2,8 +2,10 @@ package fr.loick.polytech.flu.world;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.sun.javafx.fxml.expression.Expression.not;
 import static fr.loick.polytech.flu.world.Direction.*;
 import static fr.loick.polytech.flu.world.Neighbourhood.DIAGONAL;
 
@@ -77,17 +79,14 @@ public class ChunkAnalyzer {
                 potentials.add(southWest);
         }
 
-        List<Chunk> chunks = new ArrayList<>();
-        for (Location l : potentials) {
-            Chunk c = worldMap.getChunks().get(l.getY()).get(l.getX());
-            if (c.isFree())
-                chunks.add(c);
-        }
-
-        return chunks;
+        return potentials.stream().map(l -> worldMap.getChunks().get(l.getY()).get(l.getX())).collect(Collectors.toList());
     }
 
     public List<Chunk> potentialChunks(Chunk chunk) {
         return neighbourChunks(chunk).stream().filter(Chunk::isFree).collect(Collectors.toList());
+    }
+
+    public List<Chunk> neighbourChunksCreatures(Chunk chunk) {
+        return neighbourChunks(chunk).stream().filter(c -> !c.isFree()).collect(Collectors.toList());
     }
 }

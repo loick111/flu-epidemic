@@ -24,7 +24,7 @@ public class Chunk {
     @Override
     public String toString() {
         if (creature == null)
-            return "-";
+            return " . ";
         return creature.toString();
     }
 
