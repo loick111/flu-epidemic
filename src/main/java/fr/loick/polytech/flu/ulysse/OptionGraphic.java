@@ -16,6 +16,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import java.util.Random;
+
+import java.util.regex.Pattern;
+
 /*
 	@author : Ulysse RICCIO
 */
@@ -43,6 +47,11 @@ static final int FPS_INIT = 150;//50;    //initial frames per second
      };
      addWindowListener(l);
 
+testField1 = new JTextField ("150");
+
+JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL,
+                                      FPS_MIN, FPS_MAX, FPS_INIT);
+
     JButton bouton1 = new JButton("Quitter");
     bouton1.addActionListener( new ActionListener() {
        public void actionPerformed(ActionEvent e) {
@@ -60,9 +69,24 @@ static final int FPS_INIT = 150;//50;    //initial frames per second
     }
     );
 
+	JButton bouton3 = new JButton("Aleatoire");
+	bouton3.addActionListener( new ActionListener() {
+       public void actionPerformed(ActionEvent e) {
+        Random rand = new Random();
+
+	int  n = rand.nextInt(300) + 1;
+	step = n;
+	testField1.setText(Integer.toString(step));
+	framesPerSecond.setValue(step);
+	//50 is the maximum and the 1 is our minimum 
+       }
+    }
+    );
+
      JPanel panneau = new JPanel();
 panneau.add(bouton1);
 panneau.add(bouton2);
+panneau.add(bouton3);
 
     Border border = BorderFactory.createTitledBorder("Sélection");
     panneau.setBorder(border);
@@ -75,10 +99,7 @@ panneau.add(bouton2);
     panneau.add(radio2);
 
     
-testField1 = new JTextField ("150");
 
-JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL,
-                                      FPS_MIN, FPS_MAX, FPS_INIT);
 framesPerSecond.addChangeListener( new ChangeListener() {
 public void stateChanged(ChangeEvent e) {
     JSlider source = (JSlider)e.getSource();
@@ -86,7 +107,10 @@ public void stateChanged(ChangeEvent e) {
         int fps = (int)source.getValue();
 	System.out.println(fps);
 	step = fps;
-	testField1.setText(Integer.toString(step));
+	Runnable run=new Runnable(){
+    	   public void run(){testField1.setText(Integer.toString(step));}
+ };
+SwingUtilities.invokeLater(run);
 /*        if (fps == 0) {
             if (!frozen) stopAnimation();
         } else {
@@ -114,16 +138,29 @@ framesPerSecond.setPaintLabels(true);
 
 testField1.getDocument().addDocumentListener(new DocumentListener() { 
 public void changedUpdate(DocumentEvent e) {
-    step = Integer.parseInt(testField1.getText());
-	framesPerSecond.setValue(step);
+    
+	boolean isNumber = Pattern.matches("[0-9]+", testField1.getText());
+	if ( isNumber )
+	{	
+		step = Integer.parseInt(testField1.getText());
+		framesPerSecond.setValue(step);
+	}
   }
   public void removeUpdate(DocumentEvent e) {
-    step = Integer.parseInt(testField1.getText());
-	framesPerSecond.setValue(step);
+boolean isNumber = Pattern.matches("[0-9]+", testField1.getText());
+	if ( isNumber )
+	{	
+		step = Integer.parseInt(testField1.getText());
+		framesPerSecond.setValue(step);
+	}
   }
   public void insertUpdate(DocumentEvent e) {
-    step = Integer.parseInt(testField1.getText());
-	framesPerSecond.setValue(step);
+boolean isNumber = Pattern.matches("[0-9]+", testField1.getText());
+	if ( isNumber )
+	{	
+		step = Integer.parseInt(testField1.getText());
+		framesPerSecond.setValue(step);
+	}
   }    
 }
 );
