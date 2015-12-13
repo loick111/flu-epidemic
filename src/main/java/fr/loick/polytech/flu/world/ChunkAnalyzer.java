@@ -1,8 +1,6 @@
 package fr.loick.polytech.flu.world;
 
 import fr.loick.polytech.flu.world.creatures.Creature;
-import fr.loick.polytech.flu.world.creatures.Duck;
-import fr.loick.polytech.flu.world.creatures.Human;
 
 import java.util.ArrayList;
 import java.util.List;

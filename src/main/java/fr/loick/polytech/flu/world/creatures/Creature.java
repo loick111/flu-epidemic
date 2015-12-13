@@ -109,7 +109,7 @@ public abstract class Creature {
                 || State.CONTAGIOUS.equals(state);
     }
 
-    public  boolean isHealthy() {
+    public boolean isHealthy() {
         return State.HEALTHY.equals(state);
     }
 

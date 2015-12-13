@@ -1,8 +1,10 @@
 package fr.loick.polytech.flu.simulator;
 
 import fr.loick.polytech.flu.views.WorldMapView;
-import fr.loick.polytech.flu.world.Chunk;
-import fr.loick.polytech.flu.world.creatures.*;
+import fr.loick.polytech.flu.world.creatures.Chicken;
+import fr.loick.polytech.flu.world.creatures.Duck;
+import fr.loick.polytech.flu.world.creatures.Human;
+import fr.loick.polytech.flu.world.creatures.Pig;
 
 import java.awt.*;
 

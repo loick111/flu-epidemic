@@ -18,11 +18,9 @@ import java.util.Random;
  */
 public abstract class Simulator {
 
+    public static final Double CONTACT_RATE = 0.3;
     private static final int DEFAULT_WIDTH = 10;
     private static final int DEFAULT_HEIGHT = 20;
-
-    public static final Double CONTACT_RATE = 0.3;
-
     protected Integer step;
     protected WorldMap worldMap;
     private ChunkAnalyzer chunkAnalyzer;

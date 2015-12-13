@@ -11,7 +11,7 @@ import java.util.Random;
  * @date 30/11/15
  */
 public class Pig extends Animal {
-    public static final Double INFECTED = 0.20;
+    public static final Double INFECTED = 0.2;
 
     public Pig() {
         super();
