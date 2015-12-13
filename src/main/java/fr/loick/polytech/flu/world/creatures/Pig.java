@@ -1,10 +1,7 @@
 package fr.loick.polytech.flu.world.creatures;
 
-import fr.loick.polytech.flu.world.Chunk;
-import fr.loick.polytech.flu.world.State;
 import fr.loick.polytech.flu.world.virus.H1N1;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -13,9 +10,7 @@ import java.util.Random;
  * @author Loïck MAHIEUX
  * @date 30/11/15
  */
-public class Pig extends Creature {
-
-    private static final Double DEATH_RATE = 0.30;
+public class Pig extends Animal {
     public static final Double INFECTED = 0.20;
 
     public Pig() {
@@ -24,20 +19,5 @@ public class Pig extends Creature {
 
         if (random.nextInt(100) <= INFECTED * 100)
             fallIll(new H1N1());
-    }
-
-    @Override
-    public boolean move(List<Chunk> potentialChunks) {
-        return false;
-    }
-
-    @Override
-    public void update() {
-        super.update();
-        Random random = new Random();
-
-        if (State.CONTAGIOUS == getState() && getAge() - getStateAge() == getVirus().getContagiousTime())
-            if (random.nextInt(100) < DEATH_RATE * 100)
-                changeState(State.DEAD);
     }
 }

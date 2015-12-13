@@ -2,6 +2,7 @@ package fr.loick.polytech.flu.world;
 
 import fr.loick.polytech.flu.world.creatures.Creature;
 import fr.loick.polytech.flu.world.creatures.Duck;
+import fr.loick.polytech.flu.world.creatures.Human;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,17 @@ public class ChunkAnalyzer {
 
     public ChunkAnalyzer(WorldMap worldMap) {
         this.worldMap = worldMap;
+    }
+
+    public boolean allHealthy() {
+        for (int x = 0; x < worldMap.getWidth(); x++) {
+            for (int y = 0; y < worldMap.getHeight(); y++) {
+                Chunk chunk = worldMap.getChunks().get(y).get(x);
+                if (!chunk.isFree() && !chunk.getCreature().isHealthy())
+                    return false;
+            }
+        }
+        return true;
     }
 
     public Integer countCreatures() {

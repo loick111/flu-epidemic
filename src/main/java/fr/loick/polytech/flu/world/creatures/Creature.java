@@ -22,6 +22,7 @@ public abstract class Creature {
     private Integer age;
     private State state;
     private Integer stateAge;
+    private Double speedRate;
 
     public Creature() {
         antibodies = new ArrayList<>();
@@ -29,11 +30,16 @@ public abstract class Creature {
         age = 0;
         state = State.HEALTHY;
         stateAge = 0;
+        speedRate = 1.;
     }
 
     protected void changeState(State state) {
         this.state = state;
         stateAge = age;
+        if (State.RECOVERING.equals(state))
+            speedRate = 0.5;
+        if (State.HEALTHY.equals(state))
+            speedRate = 1.;
     }
 
     protected void fallIll(Virus virus) {
@@ -47,11 +53,23 @@ public abstract class Creature {
         changeState(State.HEALTHY);
     }
 
+    protected void addAntibodies(Class<? extends Virus> virusClass) {
+        antibodies.add(virusClass);
+    }
+
+    protected Double infectCreature(Creature creature) {
+        return 1.;
+    }
+
     public boolean move(List<Chunk> potentialChunks) {
         if (potentialChunks.isEmpty())
             return false;
 
         Random random = new Random();
+
+        if (random.nextInt(100) >= speedRate * 100)
+            return false;
+
         Chunk chunk = potentialChunks.get(random.nextInt(potentialChunks.size()));
         chunk.add(this);
         return true;
@@ -64,14 +82,15 @@ public abstract class Creature {
         if (virus == null || !virus.canInfect(creature))
             return;
 
-        if (antibodies.contains(virus.getClass()))
+        if (creature.antibodies.contains(virus.getClass()))
             return;
 
         Random random = new Random();
         Double infectionRatio = virus.getInfectionRatio();
 
         if (random.nextInt(100) < infectionRatio * 100) {
-            creature.fallIll(virus);
+            if (random.nextInt(100) < infectCreature(creature) * 100)
+                creature.fallIll(virus);
         }
     }
 
@@ -88,6 +107,10 @@ public abstract class Creature {
     public boolean isSick() {
         return State.SICK.equals(state)
                 || State.CONTAGIOUS.equals(state);
+    }
+
+    public  boolean isHealthy() {
+        return State.HEALTHY.equals(state);
     }
 
     public State getState() {

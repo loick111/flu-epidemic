@@ -31,8 +31,6 @@ public class ConsoleSimulator extends Simulator {
             System.out.println("");
             System.out.println(worldMap);
             Thread.sleep(100);
-            if (step < steps - 1)
-                System.out.println("\u001b[2J");
         }
     }
 }

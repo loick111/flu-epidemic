@@ -1,6 +1,8 @@
 package fr.loick.polytech.flu.world.creatures;
 
 import fr.loick.polytech.flu.world.State;
+import fr.loick.polytech.flu.world.virus.H1N1;
+import fr.loick.polytech.flu.world.virus.H5N1;
 
 import java.util.Random;
 
@@ -13,11 +15,22 @@ import java.util.Random;
 public class Human extends Creature {
 
     public static final Double DEATH_RATE = 0.5;
+    public static final Double VACCINATED_RATE = 0.1;
+
+    public Human() {
+        super();
+        Random random = new Random();
+        if (random.nextInt(100) < VACCINATED_RATE * 100)
+            addAntibodies(H1N1.class);
+        if (random.nextInt(100) < VACCINATED_RATE * 100)
+            addAntibodies(H5N1.class);
+    }
 
     @Override
-    public void contactWith(Creature creature) {
+    protected Double infectCreature(Creature creature) {
         if (creature instanceof Human)
-            super.contactWith(creature);
+            return 1.;
+        return 0.;
     }
 
     @Override
