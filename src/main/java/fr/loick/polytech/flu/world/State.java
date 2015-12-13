@@ -5,5 +5,9 @@ package fr.loick.polytech.flu.world;
  * @date 30/11/15
  */
 public enum State {
-    HEALTHY, SICK(), CONTAGIOUS(), RECOVERING(), DEAD()
+    HEALTHY,
+    SICK,
+    CONTAGIOUS,
+    RECOVERING,
+    DEAD
 }

@@ -13,13 +13,19 @@ public abstract class Virus {
 
     private Collection<Class<? extends Creature>> infectables;
     private Double infectionRatio;
+    private Integer incubationTime;
+    private Integer contagiousTime;
+    private Integer recoveringTime;
 
     private Virus() {
 
     }
 
-    protected Virus(Double infectionRatio) {
+    protected Virus(Double infectionRatio, Integer incubationTime, Integer contagiousTime, Integer recoveringTime) {
         this.infectionRatio = infectionRatio;
+        this.incubationTime = incubationTime;
+        this.contagiousTime = contagiousTime;
+        this.recoveringTime = recoveringTime;
         this.infectables = new ArrayList<>();
     }
 
@@ -31,12 +37,24 @@ public abstract class Virus {
         return infectables.contains(creature.getClass());
     }
 
+    public Double getInfectionRatio() {
+        return infectionRatio;
+    }
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName();
     }
 
-    public Double getInfectionRatio() {
-        return infectionRatio;
+    public Integer getIncubationTime() {
+        return incubationTime;
+    }
+
+    public Integer getContagiousTime() {
+        return contagiousTime;
+    }
+
+    public Integer getRecoveringTime() {
+        return recoveringTime;
     }
 }

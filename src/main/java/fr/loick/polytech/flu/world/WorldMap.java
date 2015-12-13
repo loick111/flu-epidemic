@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class WorldMap {
 
+    public static final Double CREATURE_RATE = 0.2;
+
     private Integer width;
     private Integer height;
     private Neighbourhood neighbourhood;
@@ -53,7 +55,6 @@ public class WorldMap {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 sb.append(chunks.get(y).get(x));
-                sb.append("\t");
             }
             sb.append('\n');
         }

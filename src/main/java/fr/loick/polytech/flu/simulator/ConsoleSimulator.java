@@ -23,15 +23,16 @@ public class ConsoleSimulator extends Simulator {
             step();
 
             System.out.println("Step " + step);
-            System.out.println(chunkAnalyzer.countCreatures() + " creatures");
-            System.out.println(chunkAnalyzer.countCreatures(Pig.class) + " Pig(s)");
-            System.out.println(chunkAnalyzer.countCreatures(Human.class) + " Human(s)");
-            System.out.println(chunkAnalyzer.countCreatures(Duck.class) + " Duck(s)");
-            System.out.println(chunkAnalyzer.countCreatures(Chicken.class) + " Chicken(s)");
+            System.out.println(chunkAnalyzer.countCreatures() + " creatures " + chunkAnalyzer.countSickCreatures() + " sick");
+            System.out.println(chunkAnalyzer.countCreatures(Pig.class) + " Pig(s) " + chunkAnalyzer.countSickCreatures(Pig.class) + " sick");
+            System.out.println(chunkAnalyzer.countCreatures(Human.class) + " Human(s) " + chunkAnalyzer.countSickCreatures(Human.class) + " sick");
+            System.out.println(chunkAnalyzer.countCreatures(Duck.class) + " Duck(s) " + chunkAnalyzer.countSickCreatures(Duck.class) + " sick");
+            System.out.println(chunkAnalyzer.countCreatures(Chicken.class) + " Chicken(s) " + chunkAnalyzer.countSickCreatures(Chicken.class) + " sick");
             System.out.println("");
             System.out.println(worldMap);
             Thread.sleep(100);
-            System.out.println("\u001b[2J");
+            if (step < steps - 1)
+                System.out.println("\u001b[2J");
         }
     }
 }

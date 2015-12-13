@@ -37,23 +37,8 @@ public class GraphicSimulator extends Simulator {
      * Reset the simulation to a starting position.
      */
     public void reset() {
-
-        step = 0;
-
+        super.reset();
         if (view != null)
             view.dispose();
-
-        for (int x = 0; x < worldMap.getWidth(); x++) {
-            for (int y = 0; y < worldMap.getHeight(); y++) {
-
-                Chunk chunk = worldMap.getChunks().get(y).get(x);
-                Creature creature = chunk.getCreature();
-                if (creature != null) {
-                    chunk.removeCreature();
-                }
-            }
-        }
-
-
     }
 }

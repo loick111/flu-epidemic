@@ -21,6 +21,8 @@ public abstract class Simulator {
     private static final int DEFAULT_WIDTH = 10;
     private static final int DEFAULT_HEIGHT = 20;
 
+    public static final Double CONTACT_RATE = 0.3;
+
     protected Integer step;
     protected WorldMap worldMap;
     private ChunkAnalyzer chunkAnalyzer;
@@ -42,9 +44,24 @@ public abstract class Simulator {
         chunkAnalyzer = new ChunkAnalyzer(worldMap);
     }
 
-    abstract void run(Integer steps) throws InterruptedException;
+    public abstract void run(Integer steps) throws InterruptedException;
+
+    public void reset() {
+        step = 0;
+        for (int x = 0; x < worldMap.getWidth(); x++) {
+            for (int y = 0; y < worldMap.getHeight(); y++) {
+
+                Chunk chunk = worldMap.getChunks().get(y).get(x);
+                Creature creature = chunk.getCreature();
+                if (creature != null) {
+                    chunk.removeCreature();
+                }
+            }
+        }
+    }
 
     protected void step() {
+        Random random = new Random();
         for (int x = 0; x < worldMap.getWidth(); x++) {
             for (int y = 0; y < worldMap.getHeight(); y++) {
                 Chunk chunk = worldMap.getChunks().get(y).get(x);
@@ -52,39 +69,39 @@ public abstract class Simulator {
 
                 // if chunk is not free
                 if (creature != null) {
-                    creature.old();
+
+                    // update creature
+                    creature.update();
 
                     // free chunk if is dead
-                    if (creature.isDead())
+                    if (creature.isDead()) {
                         chunk.removeCreature();
+                        continue;
+                    }
 
                     // get neighbors
                     List<Chunk> potentialChunks = chunkAnalyzer.potentialChunks(chunk);
                     List<Chunk> neighborsChunksCreatures = chunkAnalyzer.neighbourChunksCreatures(chunk);
 
-                    // contact
-                    for (Chunk c : neighborsChunksCreatures)
-                        creature.contactWith(c.getCreature());
+                    // contact with neighbors
+                    neighborsChunksCreatures.stream().filter(c -> random.nextInt(100) < CONTACT_RATE * 100).forEach(c -> creature.contactWith(c.getCreature()));
 
                     // move
-                    if (!potentialChunks.isEmpty()) {
-                        Random random = new Random();
-                        Chunk toChunk = potentialChunks.get(random.nextInt(potentialChunks.size()));
-                        chunk.moveCreature(toChunk);
-                    }
+                    if (creature.move(potentialChunks))
+                        chunk.removeCreature();
                 }
             }
         }
     }
 
-    public void populate() {
+    protected void populate() {
         Random random = new Random();
         CreatureFactory creatureFactory = new RandomCreatureFactory();
 
         for (int x = 0; x < worldMap.getWidth(); x++) {
             for (int y = 0; y < worldMap.getHeight(); y++) {
                 Chunk chunk = worldMap.getChunks().get(y).get(x);
-                if (random.nextInt(100) < 20)
+                if (random.nextInt(100) < WorldMap.CREATURE_RATE * 100)
                     chunk.add(creatureFactory.create());
             }
         }

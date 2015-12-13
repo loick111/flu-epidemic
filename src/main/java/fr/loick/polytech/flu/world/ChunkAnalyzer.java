@@ -1,6 +1,7 @@
 package fr.loick.polytech.flu.world;
 
 import fr.loick.polytech.flu.world.creatures.Creature;
+import fr.loick.polytech.flu.world.creatures.Duck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,30 @@ public class ChunkAnalyzer {
             for (int y = 0; y < worldMap.getHeight(); y++) {
                 Chunk chunk = worldMap.getChunks().get(y).get(x);
                 if (!chunk.isFree() && chunk.getCreature().getClass().equals(creatureClass))
+                    count++;
+            }
+        }
+        return count;
+    }
+
+    public Integer countSickCreatures() {
+        Integer count = 0;
+        for (int x = 0; x < worldMap.getWidth(); x++) {
+            for (int y = 0; y < worldMap.getHeight(); y++) {
+                Chunk chunk = worldMap.getChunks().get(y).get(x);
+                if (!chunk.isFree() && chunk.getCreature().isSick())
+                    count++;
+            }
+        }
+        return count;
+    }
+
+    public Integer countSickCreatures(Class<? extends Creature> creatureClass) {
+        Integer count = 0;
+        for (int x = 0; x < worldMap.getWidth(); x++) {
+            for (int y = 0; y < worldMap.getHeight(); y++) {
+                Chunk chunk = worldMap.getChunks().get(y).get(x);
+                if (!chunk.isFree() && chunk.getCreature().getClass().equals(creatureClass) && chunk.getCreature().isSick())
                     count++;
             }
         }
@@ -109,6 +134,7 @@ public class ChunkAnalyzer {
     public List<Chunk> potentialChunks(Chunk chunk) {
         return neighbourChunks(chunk).stream().filter(Chunk::isFree).collect(Collectors.toList());
     }
+
 
     public List<Chunk> neighbourChunksCreatures(Chunk chunk) {
         return neighbourChunks(chunk).stream().filter(c -> !c.isFree()).collect(Collectors.toList());
