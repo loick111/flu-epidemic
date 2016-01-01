@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
+import fr.loick.polytech.flu.world.ChunkAnalyzer;
+
 /**
  * The GraphView provides a view of two populations of actors in the field as a
  * line graph over time. In its current version, it can only plot exactly two
@@ -15,6 +17,7 @@ import java.util.*;
  * @version 2011.07.31
  */
 public class GraphView extends JFrame {
+
     private static final Color LIGHT_GRAY = new Color(0, 0, 0, 40);
 
     private static JFrame frame;
@@ -27,7 +30,8 @@ public class GraphView extends JFrame {
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
-    //private FieldStats stats;
+    private ChunkAnalyzer stats;
+
 
     /**
      * Constructor.
@@ -39,8 +43,8 @@ public class GraphView extends JFrame {
      * @param class1   The first class to be plotted.
      * @param width    The second class to be plotted.
      */
-    public GraphView(int width, int height, int startMax) {
-//        stats = new FieldStats();
+    public GraphView(	int width, int height, int startMax , ChunkAnalyzer stats	) {
+        this.stats = stats;
         classes = new HashSet<>();
         colors = new HashMap<>();
 
@@ -50,7 +54,7 @@ public class GraphView extends JFrame {
             graph.newRun();
         }
 
-        // showStatus(0, null);
+         showStatus(0);//, null);
     }
 
     /**
@@ -75,7 +79,7 @@ public class GraphView extends JFrame {
      * @param field The field whose status is to be displayed.
      */
     public void showStatus(int step) {//, Field field) {
-        //graph.update(step, field, stats);
+        graph.update(step, stats);
     }
 
     /**
@@ -84,8 +88,8 @@ public class GraphView extends JFrame {
      * @return true If there is more than one species alive.
      */
     public boolean isViable() {//Field field) {
-        //return stats.isViable(field);
-        return true;
+        return stats.allHealthy();
+        //return true;
     }
 
     /**
@@ -94,6 +98,11 @@ public class GraphView extends JFrame {
     public void reset() {
         graph.newRun();
     }
+
+	public void setStats( ChunkAnalyzer stats ) {
+        this.stats = stats;
+    }
+
 
     /**
      * Prepare the frame for the graph display.
@@ -134,7 +143,7 @@ public class GraphView extends JFrame {
         // An internal image buffer that is used for painting. For
         // actual display, this image buffer is then copied to screen.
         private BufferedImage graphImage;
-        private int lastVal1, lastVal2;
+        private int lastVal1, lastVal2, lastVal3, lastVal4;
         private int yMax;
 
         /**
@@ -146,6 +155,8 @@ public class GraphView extends JFrame {
             clearImage();
             lastVal1 = height;
             lastVal2 = height;
+		lastVal3 = height;
+		lastVal4 = height;
             yMax = startMax;
         }
 
@@ -163,21 +174,29 @@ public class GraphView extends JFrame {
             g.drawLine(width - 2, 0, width - 2, height);
             lastVal1 = height;
             lastVal2 = height;
+		lastVal3 = height;
+		lastVal4 = height;
             repaint();
         }
 
         /**
          * Dispay a new point of data.
          */
-        public void update(int step) {//, Field field, FieldStats stats) {
-            if (classes.size() >= 2) {
-                Iterator<Class> it = classes.iterator();
+        public void update(int step , ChunkAnalyzer stats ) {//, Field field, FieldStats stats) {
+        //System.out.println("yo"+ classes.size());
+                   
+	if (classes.size() >= 2) {
+		 Iterator<Class> it = classes.iterator();
                 Class class1 = it.next();
                 Class class2 = it.next();
+		Class class3 = it.next();
+		Class class4 = it.next();
 
                 //stats.reset();
-                //int count1 = stats.getPopulationCount(field, class1);
-                //int count2 = stats.getPopulationCount(field, class2);
+                int count1 = stats.countCreatures( class1) * 100;
+                int count2 = stats.countCreatures( class2) * 100;
+		int count3 = stats.countCreatures( class3) * 100;
+		int count4 = stats.countCreatures( class4) * 100;
 
                 Graphics g = graphImage.getGraphics();
 
@@ -189,10 +208,10 @@ public class GraphView extends JFrame {
 
                 // calculate y, check whether it's out of screen. scale down if
                 // necessary.
-                int y = 0;//= height - ((height * count1) / yMax) - 1;
+                int y = height - ((height * count1) / yMax) - 1;
                 while (y < 0) {
                     scaleDown();
-                    //y = height - ((height * count1) / yMax) - 1;
+                    y = height - ((height * count1) / yMax) - 1;
                 }
                 g.setColor(LIGHT_GRAY);
                 g.drawLine(width - 2, y, width - 2, height);
@@ -200,16 +219,38 @@ public class GraphView extends JFrame {
                 g.drawLine(width - 3, lastVal1, width - 2, y);
                 lastVal1 = y;
 
-                //y = height - ((height * count2) / yMax) - 1;
+                y = height - ((height * count2) / yMax) - 1;
                 while (y < 0) {
                     scaleDown();
-                    //    y = height - ((height * count2) / yMax) - 1;
+                        y = height - ((height * count2) / yMax) - 1;
                 }
                 g.setColor(LIGHT_GRAY);
                 g.drawLine(width - 2, y, width - 2, height);
                 g.setColor(colors.get(class2));
                 g.drawLine(width - 3, lastVal2, width - 2, y);
                 lastVal2 = y;
+
+		y = height - ((height * count3) / yMax) - 1;
+                while (y < 0) {
+                    scaleDown();
+                        y = height - ((height * count3) / yMax) - 1;
+                }
+                g.setColor(LIGHT_GRAY);
+                g.drawLine(width - 2, y, width - 2, height);
+                g.setColor(colors.get(class3));
+                g.drawLine(width - 3, lastVal3, width - 2, y);
+                lastVal3 = y;
+
+		y = height - ((height * count4) / yMax) - 1;
+                while (y < 0) {
+                    scaleDown();
+                        y = height - ((height * count4) / yMax) - 1;
+                }
+                g.setColor(LIGHT_GRAY);
+                g.drawLine(width - 2, y, width - 2, height);
+                g.setColor(colors.get(class4));
+                g.drawLine(width - 3, lastVal4, width - 2, y);
+                lastVal4 = y;
 
                 repaintNow();
 
@@ -293,7 +334,7 @@ public class GraphView extends JFrame {
          *          component.
          */
         public void paintComponent(Graphics g) {
-            // g.clearRect(0, 0, size.width, size.height);
+             g.clearRect(0, 0, graphImage.getWidth(), graphImage.getHeight());
             if (graphImage != null) {
                 g.drawImage(graphImage, 0, 0, null);
             }

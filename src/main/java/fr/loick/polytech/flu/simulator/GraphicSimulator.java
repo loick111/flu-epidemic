@@ -8,6 +8,8 @@ import fr.loick.polytech.flu.world.creatures.Pig;
 
 import java.awt.*;
 
+import fr.loick.polytech.flu.views.GraphView;
+
 /**
  * Console Simulator
  *
@@ -17,6 +19,14 @@ public class GraphicSimulator extends Simulator {
 
     // A graphical view of the simulation.
     private WorldMapView view;
+	private int sleep = 150;
+
+	private GraphView secondFrame = null;
+
+	public GraphicSimulator( boolean neighbourhood ) 
+{
+        super(neighbourhood);
+    }
 
     public void run(Integer steps) throws InterruptedException {
 
@@ -26,11 +36,21 @@ public class GraphicSimulator extends Simulator {
         view.setColor(Duck.class, Color.RED);
         view.setColor(Chicken.class, Color.GREEN);
 
+	
+
         populate();
+
+	secondFrame = new GraphView( 250,250,250, chunkAnalyzer );
+
+	secondFrame.setColor(Pig.class, Color.ORANGE);
+	secondFrame.setColor(Human.class, Color.BLUE);
+	secondFrame.setColor(Duck.class, Color.RED);
+        secondFrame.setColor(Chicken.class, Color.GREEN);
 
         for (; step < steps; step++) {
             view.showStatus(step, worldMap);
-            Thread.sleep(100);
+		secondFrame.showStatus(step);
+            Thread.sleep(sleep);
             step();
         }
     }
@@ -42,5 +62,12 @@ public class GraphicSimulator extends Simulator {
         super.reset();
         if (view != null)
             view.dispose();
+    }
+
+	/**
+     * Reset the simulation to a starting position.
+     */
+    public void setSleep( int sleep ) {
+        this.sleep = sleep;
     }
 }

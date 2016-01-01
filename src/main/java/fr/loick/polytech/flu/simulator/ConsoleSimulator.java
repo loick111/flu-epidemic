@@ -9,9 +9,15 @@ import fr.loick.polytech.flu.world.creatures.Pig;
 /**
  * Console Simulator
  *
- * @author Loïck MAHIEUX
+ * @author Loïck MAHIEUX and Ulysse RICCIO
  */
 public class ConsoleSimulator extends Simulator {
+
+	public	ConsoleSimulator( boolean neighbourhood ) 
+	{
+        super(neighbourhood);
+    }
+
     public void run(Integer steps) throws InterruptedException {
         populate();
         ChunkAnalyzer chunkAnalyzer = new ChunkAnalyzer(worldMap);

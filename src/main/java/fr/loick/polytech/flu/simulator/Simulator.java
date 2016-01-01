@@ -11,10 +11,12 @@ import fr.loick.polytech.flu.world.creatures.RandomCreatureFactory;
 import java.util.List;
 import java.util.Random;
 
+
+
 /**
  * Simulator
  *
- * @author Loïck MAHIEUX
+ * @author Loïck MAHIEUX and Ulysse RICCIO
  */
 public abstract class Simulator {
 
@@ -23,13 +25,15 @@ public abstract class Simulator {
     private static final int DEFAULT_HEIGHT = 20;
     protected Integer step;
     protected WorldMap worldMap;
-    private ChunkAnalyzer chunkAnalyzer;
 
-    public Simulator() {
-        this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    protected ChunkAnalyzer chunkAnalyzer;
+	
+
+    public Simulator( boolean neighbourhood ) {
+        this(DEFAULT_WIDTH, DEFAULT_HEIGHT,neighbourhood);
     }
 
-    public Simulator(Integer width, Integer height) {
+    public Simulator(Integer width, Integer height , boolean neighbourhood  ) {
         if (width <= 0 || height <= 0) {
             System.out.println("The dimensions must be greater than zero.");
             System.out.println("Using default values.");
@@ -38,8 +42,17 @@ public abstract class Simulator {
         }
 
         step = 0;
-        worldMap = new WorldMap(width, height, Neighbourhood.NORMAL);
+	
+	if ( ! neighbourhood )
+	{
+		System.out.println("DIAGONAL");
+		worldMap = new WorldMap(width, height, Neighbourhood.DIAGONAL);
+	}
+	else
+        	worldMap = new WorldMap(width, height, Neighbourhood.NORMAL);
+
         chunkAnalyzer = new ChunkAnalyzer(worldMap);
+	
     }
 
     public abstract void run(Integer steps) throws InterruptedException;
@@ -104,4 +117,14 @@ public abstract class Simulator {
             }
         }
     }
+
+	public void setSleep( int sleep )
+	{
+	}
+
+	public ChunkAnalyzer getChunkAnalyzer( )
+	{
+		return chunkAnalyzer;
+	}
+
 }

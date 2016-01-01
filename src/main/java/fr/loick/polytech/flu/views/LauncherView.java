@@ -23,6 +23,8 @@ public class LauncherView extends JFrame {
     private JTextField testField1;
     private int step;
 
+	private JRadioButton radio1;
+
     public LauncherView() {
         super("Option");
         go = false;
@@ -79,7 +81,7 @@ public class LauncherView extends JFrame {
         Border border = BorderFactory.createTitledBorder("Sélection");
         panneau.setBorder(border);
         ButtonGroup group = new ButtonGroup();
-        JRadioButton radio1 = new JRadioButton("4-connected neighbourhoods", true);
+        radio1 = new JRadioButton("4-connected neighbourhoods", true);
         JRadioButton radio2 = new JRadioButton("8-connected neighbourhoods");
         group.add(radio1);
         panneau.add(radio1);
@@ -156,6 +158,7 @@ public class LauncherView extends JFrame {
         setContentPane(panneau);
         setSize(400, 400);
         setVisible(true);
+
     }
 
     public boolean getGo() {
@@ -170,6 +173,12 @@ public class LauncherView extends JFrame {
         //System.out.println(testField1.getText() );
 
         return step;
+    }
+
+	public boolean get4Connected() {
+        System.out.println(radio1.isSelected() );
+
+        return radio1.isSelected();
     }
 
 /*		public void stateChanged(ChangeEvent e) {
