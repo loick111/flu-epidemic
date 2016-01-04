@@ -25,8 +25,8 @@ public class App {
 		
 		frame.setGo(false);
                 simulator.reset();
-		simulator.setSleep(frame.getStep());
-                simulator.run(300);
+		simulator.setSleep(frame.getStep1());
+		simulator.run(frame.getStep()+1);
             }
         }
     }

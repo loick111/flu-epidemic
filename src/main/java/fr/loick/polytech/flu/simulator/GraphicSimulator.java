@@ -23,6 +23,8 @@ public class GraphicSimulator extends Simulator {
 
 	private GraphView secondFrame = null;
 
+	private boolean exit = false;
+
 	public GraphicSimulator( boolean neighbourhood ) 
 {
         super(neighbourhood);
@@ -48,6 +50,9 @@ public class GraphicSimulator extends Simulator {
         secondFrame.setColor(Chicken.class, Color.GREEN);
 
         for (; step < steps; step++) {
+
+		if ( exit )
+			break;
             view.showStatus(step, worldMap);
 		secondFrame.showStatus(step);
             Thread.sleep(sleep);
@@ -69,5 +74,9 @@ public class GraphicSimulator extends Simulator {
      */
     public void setSleep( int sleep ) {
         this.sleep = sleep;
+    }
+
+	public void setExit( boolean exit ) {
+        this.exit = exit;
     }
 }
