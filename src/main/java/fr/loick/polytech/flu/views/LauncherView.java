@@ -80,7 +80,7 @@ public class LauncherView extends JFrame {
                                       public void actionPerformed(ActionEvent e) {
                                           Random rand = new Random();
 
-                                          int n = rand.nextInt(10000) + 1;
+                                          int n = rand.nextInt(5000) + 1;
                                           step2 = n;
                                           testField1.setText(Integer.toString(step2));
                                           framesPerSecond.setValue(step2);
@@ -144,8 +144,8 @@ public class LauncherView extends JFrame {
         );
 
 //Turn on labels at major tick marks.
-        framesPerSecond.setMajorTickSpacing(15000);
-        framesPerSecond.setMinorTickSpacing(15000);
+        framesPerSecond.setMajorTickSpacing(1500);
+        framesPerSecond.setMinorTickSpacing(1500);
         framesPerSecond.setPaintTicks(false);
         framesPerSecond.setPaintLabels(true);
 
