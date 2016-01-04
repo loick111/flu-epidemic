@@ -56,7 +56,29 @@ public class WorldMapView extends JFrame {
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
-        contents.add(population, BorderLayout.SOUTH);
+        //contents.add(population, BorderLayout.SOUTH);
+
+	JPanel a = new JPanel();
+	
+
+	JLabel title = new JLabel("Pig");
+	title.setForeground(Color.ORANGE);
+	a.add(title, BorderLayout.NORTH);
+
+	JLabel title2 = new JLabel("Human");
+	title2.setForeground(Color.BLUE);
+	a.add(title2, BorderLayout.CENTER);
+	
+	JLabel title3 = new JLabel("Duck");
+	title3.setForeground(Color.RED);
+	a.add(title3, BorderLayout.SOUTH);
+
+	JLabel title4 = new JLabel("Chicken");
+	title4.setForeground(Color.GREEN);
+	a.add(title4, BorderLayout.EAST);	
+
+	contents.add(a, BorderLayout.SOUTH);
+
         pack();
         setVisible(true);
     }
@@ -129,8 +151,10 @@ public class WorldMapView extends JFrame {
 
         //stats.countFinished();
 
-        //population.setText(POPULATION_PREFIX
-        //        + stats.getPopulationDetails(field));
+        population.setText(POPULATION_PREFIX);
+	
+	
+
         fieldView.repaint();
     }
 

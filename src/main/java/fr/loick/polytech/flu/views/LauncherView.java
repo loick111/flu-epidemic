@@ -21,8 +21,8 @@ public class LauncherView extends JFrame {
     static final int FPS_INIT = 0;//50;    //initial frames per second
 	
 	static final int FPS_MIN1 = 1;
-    static final int FPS_MAX1 = 50000;
-    static final int FPS_INIT1 = 25000;//50;    //initial frames per second
+    static final int FPS_MAX1 = 5000;
+    static final int FPS_INIT1 = 2500;//50;    //initial frames per second
 
     private boolean go;
     private JTextField testField1;
@@ -39,7 +39,7 @@ public class LauncherView extends JFrame {
         super("Option");
         go = false;
         step = 0;
-	step2 = 25000;
+	step2 = 2500;
 
         WindowListener l = new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -48,7 +48,7 @@ public class LauncherView extends JFrame {
         };
         addWindowListener(l);
 
-        testField1 = new JTextField("25000");
+        testField1 = new JTextField("2500");
 
         JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL,
                 FPS_MIN1, FPS_MAX1, FPS_INIT1);
@@ -80,7 +80,7 @@ public class LauncherView extends JFrame {
                                       public void actionPerformed(ActionEvent e) {
                                           Random rand = new Random();
 
-                                          int n = rand.nextInt(25000) + 1;
+                                          int n = rand.nextInt(10000) + 1;
                                           step2 = n;
                                           testField1.setText(Integer.toString(step2));
                                           framesPerSecond.setValue(step2);
