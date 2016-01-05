@@ -1,0 +1,10 @@
+### Flu Epidemic
+## Required
+ * Maven
+ * Other dependencies are managed by Maven
+
+## Launch simulation
+--
+mvn clean package
+java -jar target/flu-epidemic.jar
+--

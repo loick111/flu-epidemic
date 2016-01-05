@@ -10,9 +10,9 @@ import java.awt.event.*;
 import java.util.Random;
 import java.util.regex.Pattern;
 
-/*
-    @author : Ulysse RICCIO
-*/
+/**
+ * @author Ulysse RICCIO
+ */
 
 public class LauncherView extends JFrame {
 

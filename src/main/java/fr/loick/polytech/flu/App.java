@@ -7,7 +7,8 @@ import fr.loick.polytech.flu.views.LauncherView;
 /**
  * Flu Epidemic App
  *
- * @author Loïck MAHIEUX and Ulysse RICCIO
+ * @author Loïck MAHIEUX
+ * @author Ulysse RICCIO
  * @date 30/11/2015
  */
 public class App {

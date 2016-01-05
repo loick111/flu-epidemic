@@ -9,7 +9,8 @@ import fr.loick.polytech.flu.world.creatures.Pig;
 /**
  * Console Simulator
  *
- * @author Loïck MAHIEUX and Ulysse RICCIO
+ * @author Loïck MAHIEUX
+ * @author Ulysse RICCIO
  */
 public class ConsoleSimulator extends Simulator {
 
