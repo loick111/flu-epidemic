@@ -229,3 +229,4 @@ nbactions.xml
 nb-configuration.xml
 .nb-gradle/
 
+!deliverable.jar
